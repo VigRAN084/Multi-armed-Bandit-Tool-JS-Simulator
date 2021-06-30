@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <div class="settings">
+    <head> 
+        <title> Multi-Arm Bandit Problem </title>
+    </head>
+    <header>
+        <h1>Multi-Arm Bandit Problem</h1>
+        <p>In layman's terms, the multi-armed bandit problem can be conceptualized as a person picking amongst a finite number of 
+            slot machines at a Las Vegas Casino. With partial, prior knowledge of the rewards each slot machine yields, the person 
+            must make a concious decision to maximize their reward. </p>
+        <p> In machine learning, this problem is very similar: a finite quantity of rewards are distributed amongst various arms, or choices, 
+            and the rewards must be sequentially selected in a way that maximizes the total reward, while the rewards generated from each 
+            arm are not fully understood but improve as the number of steps (or choice selections) increases.
+        </p>
+        <p>
+            The rewards generated from each arm are sampled from a normal distribution of the rewards for that particular arm, and 
+            the means and variances of these distributions remain constant throughout the experiment. The problem in such a setup 
+            is known as the exploration-exploitation dilemna. Exploitation occurs when an agent repeatedly select the arm with the 
+            highest average reward after a certain number of steps, whereas exploration results in a random selection of the available 
+            arms. The dilmena arises since repeatedly exploiting could cause an algorithm to miss out on opportunities to select the true 
+            highest reward, while continuously exploring can result in subpar rewards each time. Learning more about the optimal balance of 
+            exploration vs exploitation is a subject of ongoing research. 
+        </p>
+        <p>
+            The value ε is a probability on [0,1) that is selected prior to the experiment. During each successive run, a random number from [0,1) is selected. By convention, if the random number 
+            is less than ε, the agent explores. Otherwise, it exploits. The following interactive tool demonstrates the epsilon-greedy 
+            algorithm. Feel free to adjust the number of selections or the epsilon value. A graph of the average reward (total reward / 
+            number of steps) is shown.
+        </p>
+    </header>
     <div class="row">
         <div class="slider col1" id="n_slot_machine_slider_div">
             <label class="label" for="n_slot_machines">Number of slot machines (n): </label>
             <em id="n_slot_machine_display" class="label" style="font-style: normal;">10</em>
             <br>
-            <input type="range" name="n_slot_machines" id="n_slot_machines" min="1" max="200" value="10" 
+            <input type="hidden" name="n_slot_machines" id="n_slot_machines" min="1" max="200" value="10" 
                 oninput="set_n_slot_machines()" />
         </div>
 		<div class="slider col2" id="epsilon_slider_div">
@@ -31,7 +59,7 @@
             <label class="label">Time between action selections: </label>
             <em id = 'speed_display'  class="label" style='font-style: normal;'> 5 </em>
             <br>
-            <input type="range" name="speed" id="speed" min="0" max="1000" value="5" step="5"
+            <input type="hidden" name="speed" id="speed" min="0" max="1000" value="5" step="5"
                 oninput="set_time_between_ticks()" />
             <br> 
         </div>
