@@ -64,6 +64,7 @@ function choose_slot_machine(epsilon, n, average_rewards){
 function run_simulation(){
 	// used for loop termination 
 	var count = 0; 
+	averages = Array(t);
     
 	//run the function every interval miliseconds 
 	var interval_fn = setInterval(function () {
@@ -74,6 +75,7 @@ function run_simulation(){
 		if (count > t | resetFlag === true) {
 			count = 0; 
 			clearInterval(interval_fn);
+			avgReward_Graph();
             return; 
 		}
         
@@ -105,6 +107,93 @@ function run_simulation(){
 		score += reward;
 		avg_score = score / count
 		document.getElementById("score_display").innerHTML = avg_score;
+
+		averages[count-1] = {};
+		averages[count-1].time = count;
+		averages[count-1].avg_score = avg_score;
 	}, interval)
+}
+/** 
+	Generates the graph for average reward vs steps
+**/
+function avgReward_Graph(){
+	var width = 960,
+	height = 500,
+	svg = d3.select("body").append("svg")
+	.attr("width", width)
+	.attr("height", height);
+
+	//Define a buffer to have around the borders of the svg element 
+	border = {
+		top: 20, 
+		bottom: 60,
+		left: 50, 
+		right: 20
+	}
+	
+	width = +svg.attr("width") - border.left - border.right;
+	height = +svg.attr("height")- border.bottom - border.top;
+
+	svg = svg.append("g")
+	.attr("transform",   "translate(" + border.left + "," + border.top + ")");
+
+	averages.sort( (x,y) => x.time - y.time );
+
+	console.log(averages);
+	console.log(averages.length);
+
+	var valueX = function (d){ return d.time; };
+	var valueY = function (d){ return d.avg_score; };
+
+	var scaleX = d3.scaleLinear()
+	.domain(d3.extent(averages, valueX))
+	.range([0, width]);
+
+
+	xAxis = d3.axisBottom(scaleX);
+	svg.append("g")
+	.attr("class", "x axis")
+	.attr("transform", "translate(0," + height + ")")
+	.call(xAxis);
+
+	//add x axis title 
+	svg.append("text")
+	.attr("class", "x axis")
+	.attr("y", height + (border.bottom - 20))
+	.attr("x", width /2)
+	.style("text-anchor", "middle")
+	.text("Iterations");
+	
+
+	var scaleY = d3.scaleLinear()
+	.domain(d3.extent(averages, valueY))
+	.range([height, 0]);
+
+	yAxis = d3.axisLeft(scaleY);
+
+	// add the y axis 
+	svg.append("g")
+	.attr("class", "y axis")
+	.call(yAxis);  
+	
+	//add label for y axis 
+	svg.append("text")
+        .attr("class", "y axis")
+		.attr("transform", "rotate(-90)")
+		.attr("x", 0 - height /2)
+		.attr("y", 0 - border.left + 1)	
+		.attr("dy", "1em")
+		.style("text-anchor", "middle")   
+		.text("Average Reward");
+
+
+	var line = d3.line()
+	.x(function(d) { return scaleX(valueX(d)); })
+	.y(function(d) { return scaleY(valueY(d)); });
+
+	svg.append("path")
+	.attr("d", line(averages))
+	.attr("stroke", "black")
+	.attr("fill", "none");
 }
 
