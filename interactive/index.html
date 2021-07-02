@@ -29,26 +29,47 @@
             number of steps) is shown.
         </p>
         <div style="width:100%">
-		    <svg width="600" height="300">
+		    <svg width="1000" height="300">
                 <g id="scores">
-                    <text id="yScore" x="0" y="20" fill="royalblue">Your score: 0</text><text id="aScore" x="0" y="40" fill="crimson">Algorithm score: 3</text>
+                    <text  x="0" y="20" fill="royalblue">Your score: </text><text id="userScore" x="80" y="20" fill="royalblue"> 0</text>
+                    <text  x="0" y="40" fill="crimson">Algo score: </text><text id="aScore" x="80" y="40" fill="crimson">0</text>
                 </g>
                 <g id="machines">
                     <g id="machine0">
-                        <rect id="machineBody0" stroke="black" x="50" y="150" width="100" height="50" fill="white" rx="5" ry="5" onclick="alert('You have clicked the circle.')"></rect>  
-                        <text x="80" y="182" fill="black">Hello</text>                      
+                        <rect id="machineBody0" stroke="black" x="50" y="150" width="200" height="75" fill="white" rx="5" ry="5" onclick="generateRewardUser(1)"></rect> 
+                        <text x="80" y="182" id="user_n1" fill="black">0</text>    
+                        <text x="80" y="200" id="user_reward1" fill="black">009090909</text>                   
                     </g>
                     <g id="machine1">
-                        <rect id="machineBody0" stroke="black" x="200" y="150" width="100" height="50" fill="white" rx="5" ry="5" onclick="alert('You have clicked the circle.')"></rect> 
-                        <text x="230" y="182" fill="black">Hello</text>                         
+                        <rect id="machineBody1" stroke="black" x="300" y="150" width="200" height="75" fill="white" rx="5" ry="5" onclick="generateRewardUser(2)"></rect> 
+                        <text x="330" y="182" id="user_n2" fill="black">0</text>       
+                        <text x="330" y="200" id="user_reward2" fill="black">009090909</text>                   
                     </g>
                     <g id="machine2">
-                        <rect id="machineBody0" stroke="black" x="350" y="150" width="100" height="50" fill="white" rx="5" ry="5" onclick="alert('You have clicked the circle.')"></rect> 
-                        <text x="380" y="182" fill="black">Hello</text>                         
+                        <rect id="machineBody2" stroke="black" x="550" y="150" width="200" height="75" fill="white" rx="5" ry="5" onclick="generateRewardUser(3)"></rect> 
+                        <text x="580" y="182" id="user_n3" fill="black">0</text>       
+                        <text x="580" y="200" id="user_reward3" fill="black">009090909</text>                   
                     </g>
+                </g>
             </svg>
         </div>
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="interactive.js"></script>
+        <script>
+            //epsilon - the chance to choose randomly
+            var epsilon = 0.1;
+            
+            //avg_score - score divided by the number of selections
+            var user_score = 0; 
+            var avg_score = 0;             
+         
+            //the slot machines
+            var slot_machines;
+                    
+            //Setup the svg canvas and the borders 
+            // initialise the variables svg, border, width, height
+            setup_interactive_machines();
+            
+            </script>
     </body>
 </html>
