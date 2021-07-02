@@ -110,7 +110,7 @@ function generateRewardUser(choice) {
 
 function generateRewardAlgo() {        
 		//extract the average rewards from the slot machines
-		var average_rewards = user_slot_machines.map((d) => d.average_reward)
+		var average_rewards = algo_slot_machines.map((d) => d.average_reward)
 
 		//choose slot machine
 		var choice = choose_slot_machine(epsilon, 3, average_rewards)
@@ -141,9 +141,20 @@ function choose_slot_machine(epsilon, n, average_rewards){
 	}  else {
 		//greedy choice 
 		 original = average_rewards;
-		 max_reward = average_rewards.slice(0).sort( (x,y) => y-x)[0]
-		 index = original.indexOf(max_reward)
+		 /*max_reward = average_rewards.slice(0).sort( (x,y) => y-x)[0]
+		 index = original.indexOf(max_reward)*/
+         index = maxRewardIndex(average_rewards);
 		return index;
 	}	
+}
+function maxRewardIndex(arr) {
+    console.log(arr);
+    maxIndex = 0;
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i]> arr[maxIndex]) {
+            maxIndex = i;
+        }
+    }
+    return maxIndex;
 }
 
