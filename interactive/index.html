@@ -11,25 +11,15 @@
             must make a concious decision to maximize their reward. </p>
         <p> In machine learning, this problem is very similar: a finite quantity of rewards are distributed amongst various arms, or choices, 
             and the rewards must be sequentially selected in a way that maximizes the total reward, while the rewards generated from each 
-            arm are not fully understood but improve as the number of steps (or choice selections) increases.
+            arm are not fully understood but improve as the number of steps (or choice selections) increases. This page primarily focuses 
+            on one particular algorithm: Epsilon Greedy. 
         </p>
-        <p>
-            The rewards generated from each arm are sampled from a normal distribution of the rewards for that particular arm, and 
-            the means and variances of these distributions remain constant throughout the experiment. The problem in such a setup 
-            is known as the exploration-exploitation dilemna. Exploitation occurs when an agent repeatedly select the arm with the 
-            highest average reward after a certain number of steps, whereas exploration results in a random selection of the available 
-            arms. The dilmena arises since repeatedly exploiting could cause an algorithm to miss out on opportunities to select the true 
-            highest reward, while continuously exploring can result in subpar rewards each time. Learning more about the optimal balance of 
-            exploration vs exploitation is a subject of ongoing research. 
+        <p> 
+            The following interactive tool demonstrates such a scenario. Feel free to play the game and see if you can beat the algorithm!
         </p>
-        <p>
-            The value ε is a probability on [0,1) that is selected prior to the experiment. During each successive run, a random number from [0,1) is selected. By convention, if the random number 
-            is less than ε, the agent explores. Otherwise, it exploits. The following interactive tool demonstrates the epsilon-greedy 
-            algorithm. Feel free to adjust the number of selections or the epsilon value. A graph of the average reward (total reward / 
-            number of steps) is shown.
-        </p>
+        
         <div style="width:100%">
-		    <svg width="10000" height="1000" border = "1">
+		    <svg width="10000" height="400" border = "1">
                 <g id="scores">
                     <text  x="0" y="20" fill="royalblue">Your total score: </text><text id="userScore" x="120" y="20" fill="royalblue"> 0</text>
                     <text  x="0" y="40" fill="crimson">Algo total score: </text><text id="aScore" x="120" y="40" fill="crimson">0</text>
@@ -98,6 +88,30 @@
             // initialise the variables svg, border, width, height
             setup_interactive_machines();
             
-            </script>
+        </script>
+        <p> Now, let's discuss the functionality of the above algorithm. </p>
+       <h3> Epsilon Greedy Algorithm</h3>
+       <p> Refer back to the analogy of a Las Vegas Casino. After some time, the person will pick up a pattern on a slot machine that yields the most reward. 
+           They might continue to pick that arm to maximize their total reward, but every so often, they might choose a different one. In essence, this is 
+        what the epsilon-greedy algorithm does as well. </p>
+       <p>
+           The rewards generated from each arm are sampled from a normal distribution of the rewards for that particular arm, and 
+           the means and variances of these distributions remain constant throughout the experiment. The problem in such a setup 
+           is known as the exploration-exploitation dilemna. Exploitation occurs when an agent repeatedly select the arm with the 
+           highest average reward after a certain number of steps, whereas exploration results in a random selection of the available 
+           arms. The dilmena arises since repeatedly exploiting could cause an algorithm to miss out on opportunities to select the true 
+           highest reward, while continuously exploring can result in subpar rewards each time. Learning more about the optimal balance of 
+           exploration vs exploitation is a subject of ongoing research. 
+       </p>
+       <p>
+           The value ε is a probability on [0,1) that is selected prior to the experiment. During each successive run, a random number from [0,1) is selected. By convention, if the random number 
+           is less than ε, the agent explores. Otherwise, it exploits. In the above tool, the epsilon-value we assigned was 0.1. 
+       </p>
+       <h3> Conclusion</h3>
+       <p>
+           This article explored the multi-armed bandit problem and one approach to solving it: the Epsilon Greedy Algorithm. The applications of this algorithm
+           are ubiquitous in our daily lives, such as choosing one of your favorite restaurants or deciding to explore a new one you have never seen. But beyond this, 
+           the Epsilon Greedy Algorithm is a fundamental concept in reinforcement learning that is driving improvements in various fields around the world. 
+       </p>
     </body>
 </html>
